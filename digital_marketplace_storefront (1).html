@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DedetGMG Store - Game Account & Digital Services</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter & Rajdhani -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        aura: {
+                            bg: '#08030f',
+                            card: '#120824',
+                            cardHover: '#1c0d38',
+                            purple: '#9d4edd',
+                            neon: '#c77dff',
+                            glow: '#e0aaff',
+                            darkPurple: '#240046',
+                            whiteGlow: '#f8fafc',
+                            accent: '#7b2cbf'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'purple-glow': '0 0 25px rgba(157, 78, 221, 0.4)',
+                        'purple-neon': '0 0 15px #c77dff, 0 0 30px #9d4edd',
+                        'white-glow': '0 0 20px rgba(248, 250, 252, 0.5)',
+                        'card-glow': '0 8px 32px 0 rgba(123, 44, 191, 0.25)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #08030f;
+            color: #f8fafc;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Aura Eye Glow Animation */
+        @keyframes eyeGlow {
+            0%, 100% { opacity: 0.8; transform: scale(1); filter: drop-shadow(0 0 15px #c77dff); }
+            50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 30px #e0aaff); }
+        }
+
+        /* Energy Trail effect */
+        @keyframes auraTrail {
+            0% { stroke-dashoffset: 1000; opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { stroke-dashoffset: 0; opacity: 0.3; }
+        }
+
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        .animate-eye {
+            animation: eyeGlow 3s infinite ease-in-out;
+        }
+
+        .animate-float {
+            animation: floatAnim 4s ease-in-out infinite;
+        }
+
+        .pulse-bg {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-panel {
+            background: rgba(18, 8, 36, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(199, 125, 255, 0.18);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(199, 125, 255, 0.4);
+        }
+
+        .glass-nav {
+            background: rgba(8, 3, 15, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(157, 78, 221, 0.2);
+        }
+
+        /* Neon Text Effect */
+        .neon-text-white {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(199, 125, 255, 0.6);
+        }
+
+        .neon-text-purple {
+            text-shadow: 0 0 8px #c77dff, 0 0 20px #9d4edd;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #08030f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3c096c;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7b2cbf;
+        }
+
+        /* Custom Particle Canvas */
+        #auraCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-aura-purple selection:text-white">
+
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-aura-darkPurple via-aura-purple to-aura-neon flex items-center justify-center p-0.5 shadow-purple-glow group-hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-aura-bg rounded-[10px] flex items-center justify-center">
+                            <i class="fa-solid fa-eye text-aura-neon text-xl group-hover:text-white transition-colors"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-rajdhani font-bold text-2xl tracking-wider text-white neon-text-white block leading-none">DEDET<span class="text-aura-neon">GMG</span></span>
+                        <span class="text-[10px] tracking-widest text-gray-400 font-mono uppercase block mt-1">JB REGION BANTEN TERPERCAYA 100%</span>
+                    </div>
+                </a>
+
+                <!-- Navigation Links (Desktop) -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="#akun-game" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-aura-purple/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad text-aura-neon"></i> Jual/Beli Akun Games
+                    </a>
+                    <a href="#suntik-sosmed" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-aura-purple/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-aura-neon"></i> Suntik ALL Sosmed
+                    </a>
+                    <a href="#nokos-indo" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-aura-purple/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-sim-card text-aura-neon"></i> Nokos Indo
+                    </a>
+                    <a href="#testimoni" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-aura-purple/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-star text-aura-neon"></i> Testimoni Buyer
+                    </a>
+                </nav>
+
+                <!-- Action Button & Admin Add -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <button onclick="openModal('addAccountModal')" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-aura-neon/50 text-aura-glow bg-aura-purple/20 hover:bg-aura-purple/40 hover:border-aura-neon hover:shadow-purple-glow transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-plus-circle text-aura-neon"></i>  NO Admin: 621586920400
+                    </button>
+                    <a href="https://wa.me/6281234567890?text=Halo%20Admin%20KuroAura,%20saya%20ingin%20bertanya" target="_blank" class="px-5 py-2.5 rounded-lg font-medium text-sm text-white bg-gradient-to-r from-aura-purple to-purple-600 hover:from-aura-neon hover:to-aura-purple shadow-purple-glow transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Hubungi Admin : 621586920400
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <div class="md:hidden flex items-center gap-2">
+                    <button onclick="openModal('addAccountModal')" class="p-2 text-aura-neon border border-aura-neon/40 rounded-lg">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button id="mobileMenuBtn" class="text-gray-300 hover:text-white p-2 rounded-lg focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-panel border-t border-aura-purple/30 px-4 pt-3 pb-6 space-y-2">
+            <a href="#akun-game" class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-aura-purple/30"><i class="fa-solid fa-gamepad text-aura-neon mr-2"></i> Akun Game</a>
+            <a href="#suntik-sosmed" class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-aura-purple/30"><i class="fa-solid fa-bolt text-aura-neon mr-2"></i> Suntik Sosmed</a>
+            <a href="#nokos-indo" class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-aura-purple/30"><i class="fa-solid fa-sim-card text-aura-neon mr-2"></i> Nokos Indo OTP</a>
+            <a href="#testimoni" class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-aura-purple/30"><i class="fa-solid fa-star text-aura-neon mr-2"></i> Testimoni Buyer</a>
+            <div class="pt-2">
+                <a href="https://wa.me/6281234567890?text=Halo%20Admin%20KuroAura" target="_blank" class="w-full text-center block px-4 py-3 rounded-lg font-medium text-sm text-white bg-gradient-to-r from-aura-purple to-purple-600 shadow-purple-glow">
+                    <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Chat WhatsApp Admin
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-20">
+        <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-16 px-4">
+            <!-- Background Canvas for Particles -->
+            <canvas id="auraCanvas"></canvas>
+            
+            <!-- Glowing Ambient Background Blurs -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-aura-purple/30 rounded-full blur-[120px] pointer-events-none pulse-bg"></div>
+            <div class="absolute bottom-10 left-10 w-[250px] h-[250px] bg-indigo-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 w-full">
+                
+                <!-- Left Hero Text Content -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-aura-neon/40 text-xs sm:text-sm text-aura-glow font-mono uppercase tracking-widest shadow-purple-glow">
+                        <span class="w-2 h-2 rounded-full bg-aura-neon animate-ping"></span>
+                        Toko Resmi • Akun & Services Verified
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-rajdhani tracking-tight leading-none text-white">
+                        DedetGMG STORE <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-aura-glow to-aura-neon neon-text-white">
+                            JB REGION BANTEN
+                        </span>
+                    </h1>
+
+                    <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Pusat jual beli akun game sultan bergaransi, jasa <span class="text-aura-neon font-semibold">suntik followers sosmed instant</span>, dan ketersediaan <span class="text-aura-neon font-semibold">Nokos Indonesia OTP</span> terpercaya dengan proses kilat 24/7.
+                    </p>
+
+                    <!-- Stat Cards Grid -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-4 max-w-lg mx-auto lg:mx-0 pt-2">
+                        <div class="glass-panel p-3 sm:p-4 rounded-xl text-center border-l-2 border-l-aura-neon">
+                            <span class="block text-xl sm:text-2xl font-bold font-rajdhani text-white">100%</span>
+                            <span class="text-[11px] sm:text-xs text-gray-400">Aman & Terpercaya </span>
+                        </div>
+                        <div class="glass-panel p-3 sm:p-4 rounded-xl text-center border-l-2 border-l-aura-purple">
+                            <span class="block text-xl sm:text-2xl font-bold font-rajdhani text-white">3.5k+</span>
+                            <span class="text-[11px] sm:text-xs text-gray-400">Transaksi Sukses</span>
+                        </div>
+                        <div class="glass-panel p-3 sm:p-4 rounded-xl text-center border-l-2 border-l-white">
+                            <span class="block text-xl sm:text-2xl font-bold font-rajdhani text-white">Instant</span>
+                            <span class="text-[11px] sm:text-xs text-gray-400">Proses Cepat</span>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action Buttons -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#akun-game" class="px-8 py-3.5 rounded-xl text-base font-bold text-white bg-gradient-to-r from-aura-purple via-aura-accent to-purple-800 hover:from-aura-neon hover:to-aura-purple shadow-purple-neon transition-all duration-300 hover:scale-105 flex items-center gap-3">
+                            <i class="fa-solid fa-gamepad text-lg"></i> Cek Akun Game Ready
+                        </a>
+                        <a href="#suntik-sosmed" class="px-7 py-3.5 rounded-xl text-base font-bold text-gray-200 glass-panel hover:bg-aura-purple/30 hover:text-white hover:border-aura-neon/50 transition-all duration-300 flex items-center gap-2">
+                            <i class="fa-solid fa-fire text-aura-neon"></i> Order Suntik ALL Sosmed
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Hero Visual Art (Lab Aura Anime Character Effect) -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-sm sm:max-w-md aspect-square rounded-3xl p-1 bg-gradient-to-b from-aura-neon/60 via-aura-purple/30 to-transparent shadow-purple-glow animate-float">
+                        
+                        <!-- Outer Decorative Energy Circle -->
+                        <div class="absolute -inset-2 bg-gradient-to-r from-aura-purple to-aura-glow rounded-3xl blur-md opacity-50 pulse-bg"></div>
+
+                        <div class="relative w-full h-full bg-aura-bg rounded-[22px] overflow-hidden flex items-center justify-center border border-aura-purple/40">
+                            
+                            <!-- Custom SVG Anime Eye Aura Artwork -->
+                            <svg class="w-full h-full p-4" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="purpleGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#ffffff" />
+                                        <stop offset="50%" stop-color="#c77dff" />
+                                        <stop offset="100%" stop-color="#3c096c" />
+                                    </linearGradient>
+                                    <radialGradient id="eyeCenterGrad" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="#ffffff" />
+                                        <stop offset="40%" stop-color="#e0aaff" />
+                                        <stop offset="100%" stop-color="#120824" />
+                                    </radialGradient>
+                                    <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feGaussianBlur stdDeviation="10" result="blur" />
+                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                    </filter>
+                                </defs>
+
+                                <!-- Anime Hair & Face Contour Lines (Vector Silhouette) -->
+                                <path d="M 80 180 Q 200 80 380 120 Q 420 220 400 320 Q 280 440 180 400 Q 100 340 80 180 Z" fill="#120824" stroke="#7b2cbf" stroke-width="2" opacity="0.8"/>
+                                <path d="M 120 120 Q 250 60 410 140 Q 350 280 200 420 C 120 300 80 200 120 120 Z" fill="#1c0d38" opacity="0.6"/>
+                                
+                                <!-- Glowing Anime Eye Structure -->
+                                <g class="animate-eye">
+                                    <!-- Eye Contour Outer -->
+                                    <path d="M 170 240 Q 260 170 360 250 Q 270 320 170 240 Z" fill="#08030f" stroke="#c77dff" stroke-width="4" filter="url(#glowFilter)"/>
+                                    <!-- Iris -->
+                                    <ellipse cx="265" cy="245" rx="55" ry="50" fill="url(#eyeCenterGrad)" stroke="#ffffff" stroke-width="2"/>
+                                    <!-- Pupil Center -->
+                                    <circle cx="265" cy="245" r="22" fill="#08030f" stroke="#c77dff" stroke-width="3"/>
+                                    <circle cx="265" cy="245" r="8" fill="#ffffff"/>
+                                    <!-- Eye Light Highlights -->
+                                    <circle cx="280" cy="230" r="10" fill="#ffffff" opacity="0.9"/>
+                                    <circle cx="250" cy="255" r="5" fill="#e0aaff" opacity="0.8"/>
+                                </g>
+
+                                <!-- Signature Aura Flame/Flame Trail Extending From Eye -->
+                                <path d="M 310 235 C 360 220 400 190 470 170 C 420 210 370 240 320 250 Z" fill="url(#purpleGlowGrad)" filter="url(#glowFilter)"/>
+                                <path d="M 320 240 C 390 225 430 180 490 140 C 440 195 390 235 330 255 Z" fill="#ffffff" opacity="0.8" filter="url(#glowFilter)"/>
+
+                                <!-- Cyber Energy Lines overlay -->
+                                <path d="M 50 250 L 150 250 L 180 280 L 350 280 L 380 250 L 450 250" stroke="#c77dff" stroke-width="1.5" stroke-dasharray="8 4" opacity="0.5"/>
+                                <circle cx="180" cy="280" r="3" fill="#c77dff"/>
+                                <circle cx="380" cy="250" r="3" fill="#ffffff"/>
+                            </svg>
+
+                            <!-- Badge Overlay -->
+                            <div class="absolute bottom-4 left-4 right-4 glass-panel p-3 rounded-xl border border-aura-neon/30 flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <span class="text-xs font-mono text-gray-200">Aura Mode: Active/Noactive </span>
+                                </div>
+                                <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-aura-purple/50 text-white border border-aura-neon/40">Verified</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="akun-game" class="py-16 px-4 max-w-7xl mx-auto relative">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <div class="flex items-center gap-2 text-aura-neon text-sm font-mono uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-gamepad"></i> Katalog JB DedetGMG
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold font-rajdhani text-white">
+                        JUAL BELI <span class="text-aura-neon neon-text-purple">AKUN GAME</span> SULTAN
+                    </h2>
+                    <p class="text-gray-400 text-sm mt-1">Akun aman 100%, terpercaya 100%, login allaman & spek lengkap.</p>
+                </div>
+
+                <!-- Game Filter Tabs -->
+                <div class="flex flex-wrap gap-2" id="gameFilterContainer">
+                    <button onclick="filterGame('all')" class="filter-btn active px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-aura-purple text-white border border-aura-neon shadow-purple-glow transition-all">All Games</button>
+                    <button onclick="filterGame('mlbb')" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider glass-panel text-gray-300 hover:text-white border border-transparent hover:border-aura-neon/40 transition-all">Mobile Legends</button>
+                    <button onclick="filterGame('ff')" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider glass-panel text-gray-300 hover:text-white border border-transparent hover:border-aura-neon/40 transition-all">Free Fire</button>
+                    <button onclick="filterGame('genshin')" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider glass-panel text-gray-300 hover:text-white border border-transparent hover:border-aura-neon/40 transition-all">Genshin Impact</button>
+                    <button onclick="filterGame('valorant')" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider glass-panel text-gray-300 hover:text-white border border-transparent hover:border-aura-neon/40 transition-all">Valorant</button>
+                </div>
+            </div>
+
+            <!-- Akun Game Cards Grid -->
+            <div id="accountGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Javascript will render products here -->
+            </div>
+        </section>
+
+        <section id="suntik-sosmed" class="py-16 px-4 relative bg-aura-card/30 border-y border-aura-purple/20">
+            <div class="max-w-7xl mx-auto">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <div class="inline-flex items-center gap-2 text-aura-neon text-sm font-mono uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-bolt"></i> Instant Boost
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold font-rajdhani text-white">
+                        LAYANAN <span class="text-aura-neon neon-text-purple">SUNTIK ALL SOSMED</span>
+                    </h2>
+                    <p class="text-gray-400 text-sm mt-2">Tingkatkan kredibilitas & engagement akun sosial mediamu secara cepat, aman tanpa password, & permanen.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Interactive Order Calculator Form -->
+                    <div class="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-2xl border border-aura-purple/40 shadow-card-glow">
+                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2 font-rajdhani">
+                            <i class="fa-solid fa-calculator text-aura-neon"></i> Kalkulator Order Suntik Instant
+                        </h3>
+
+                        <form id="sosmedForm" onsubmit="handleSosmedSubmit(event)" class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Pilih Platform Sosmed</label>
+                                <div class="grid grid-cols-4 gap-3">
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="platform" value="Instagram" class="peer hidden" checked onchange="updateSosmedServices()">
+                                        <div class="glass-panel p-3 rounded-xl text-center peer-checked:bg-aura-purple/60 peer-checked:border-aura-neon border border-transparent transition-all">
+                                            <i class="fa-brands fa-instagram text-2xl text-pink-400 block mb-1"></i>
+                                            <span class="text-xs font-medium block">Instagram</span>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="platform" value="TikTok" class="peer hidden" onchange="updateSosmedServices()">
+                                        <div class="glass-panel p-3 rounded-xl text-center peer-checked:bg-aura-purple/60 peer-checked:border-aura-neon border border-transparent transition-all">
+                                            <i class="fa-brands fa-tiktok text-2xl text-cyan-400 block mb-1"></i>
+                                            <span class="text-xs font-medium block">TikTok</span>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="platform" value="YouTube" class="peer hidden" onchange="updateSosmedServices()">
+                                        <div class="glass-panel p-3 rounded-xl text-center peer-checked:bg-aura-purple/60 peer-checked:border-aura-neon border border-transparent transition-all">
+                                            <i class="fa-brands fa-youtube text-2xl text-red-500 block mb-1"></i>
+                                            <span class="text-xs font-medium block">YouTube</span>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="platform" value="Telegram" class="peer hidden" onchange="updateSosmedServices()">
+                                        <div class="glass-panel p-3 rounded-xl text-center peer-checked:bg-aura-purple/60 peer-checked:border-aura-neon border border-transparent transition-all">
+                                            <i class="fa-brands fa-telegram text-2xl text-blue-400 block mb-1"></i>
+                                            <span class="text-xs font-medium block">Telegram</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Jenis Layanan</label>
+                                <select id="sosmedServiceSelect" onchange="calculateSosmedPrice()" class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-3 border border-aura-purple/40 focus:border-aura-neon focus:outline-none text-sm">
+                                    <!-- Dynamic Options Loaded via JS -->
+                                </select>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Jumlah Order</label>
+                                    <input type="number" id="sosmedAmount" value="1000" min="100" step="100" oninput="calculateSosmedPrice()" class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-3 border border-aura-purple/40 focus:border-aura-neon focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Link Target / Username</label>
+                                    <input type="text" id="sosmedTarget" placeholder="e.g. @username atau link post" required class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-3 border border-aura-purple/40 focus:border-aura-neon focus:outline-none text-sm">
+                                </div>
+                            </div>
+
+                            <!-- Total Price Display Box -->
+                            <div class="p-4 rounded-xl bg-aura-purple/20 border border-aura-neon/40 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-gray-300 block">Total Estimasi Biaya</span>
+                                    <span id="sosmedTotalPrice" class="text-2xl font-bold font-rajdhani text-aura-neon">Rp 15.000</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[11px] text-emerald-400 font-mono block"><i class="fa-solid fa-check-circle"></i> Tanpa Password Hanya Username saja</span>
+                                    <span class="text-[11px] text-gray-400 font-mono block">Proses 5 - 30 Menit</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full py-3.5 rounded-xl text-base font-bold text-white bg-gradient-to-r from-aura-purple to-purple-600 hover:from-aura-neon hover:to-aura-purple shadow-purple-glow transition-all flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-xl"></i> Order Layanan via WhatsApp Chat No : +6281586920400
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Side Info Features -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="glass-panel p-5 rounded-2xl border border-aura-purple/30">
+                            <div class="w-10 h-10 rounded-lg bg-aura-purple/40 flex items-center justify-center text-aura-neon mb-3">
+                                <i class="fa-solid fa-shield-halved text-xl"></i>
+                            </div>
+                            <h4 class="font-bold text-white mb-1">Aman 100% Tanpa Password</h4>
+                            <p class="text-xs text-gray-400">Kami hanya membutuhkan Link Post atau Username saja. Privasi dan keamanan akun Anda dijamin 100% terjaga.</p>
+                        </div>
+
+                        <div class="glass-panel p-5 rounded-2xl border border-aura-purple/30">
+                            <div class="w-10 h-10 rounded-lg bg-aura-purple/40 flex items-center justify-center text-aura-neon mb-3">
+                                <i class="fa-solid fa-gauge-high text-xl"></i>
+                            </div>
+                            <h4 class="font-bold text-white mb-1">Server Instant Speed</h4>
+                            <p class="text-xs text-gray-400">Pemesanan diproses otomatis oleh server berkecepatan tinggi setelah konfirmasi pembayaran selesai.</p>
+                        </div>
+
+                        <div class="glass-panel p-5 rounded-2xl border border-aura-purple/30">
+                            <div class="w-10 h-10 rounded-lg bg-aura-purple/40 flex items-center justify-center text-aura-neon mb-3">
+                                <i class="fa-solid fa-rotate-left text-xl"></i>
+                            </div>
+                            <h4 class="font-bold text-white mb-1">Garansi Refill / High Quality</h4>
+                            <p class="text-xs text-gray-400">Layanan kualitas terbaik dengan sistem drop protection & garansi refill jika terjadi penurunan.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="nokos-indo" class="py-16 px-4 max-w-7xl mx-auto relative">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 text-aura-neon text-sm font-mono uppercase tracking-wider mb-2">
+                    <i class="fa-solid fa-sim-card"></i> Virtual Number OTP
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold font-rajdhani text-white">
+                    NOKOS INDO <span class="text-aura-neon neon-text-purple">(NOMOR KOSONG OTP)</span>
+                </h2>
+                <p class="text-gray-400 text-sm mt-2">Terima kode OTP instan untuk verifikasi akun WhatsApp, Telegram, e-Wallet, dan aplikasi lainnya.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Nokos Card 1 -->
+                <div class="glass-panel p-6 rounded-2xl border border-aura-purple/40 hover:border-aura-neon transition-all duration-300 relative group">
+                    <div class="absolute top-4 right-4">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            Ready Stock
+                        </span>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4 text-2xl">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-rajdhani">NOKOS WHATSAPP</h3>
+                    <p class="text-xs text-gray-400 mt-1 mb-4">Nomor virtual Indonesia khusus verifikasi WhatsApp baru / clone.</p>
+                    <div class="flex items-baseline justify-between pt-2 border-t border-aura-purple/20">
+                        <span class="text-xs text-gray-400">Harga / OTP</span>
+                        <span class="text-xl font-bold font-rajdhani text-aura-neon">Rp 6.000</span>
+                    </div>
+                    <button onclick="orderNokos('WhatsApp Indo', 7000)" class="w-full mt-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-aura-purple hover:bg-aura-neon transition-all shadow-purple-glow">
+                        Beli OTP WhatsApp
+                    </button>
+                </div>
+
+                <!-- Nokos Card 2 -->
+                <div class="glass-panel p-6 rounded-2xl border border-aura-purple/40 hover:border-aura-neon transition-all duration-300 relative group">
+                    <div class="absolute top-4 right-4">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            Ready Stock
+                        </span>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-sky-500/20 flex items-center justify-center text-sky-400 mb-4 text-2xl">
+                        <i class="fa-brands fa-telegram"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-rajdhani">NOKOS TELEGRAM</h3>
+                    <p class="text-xs text-gray-400 mt-1 mb-4">Nomor virtual Indonesia untuk verifikasi Telegram fresh login.</p>
+                    <div class="flex items-baseline justify-between pt-2 border-t border-aura-purple/20">
+                        <span class="text-xs text-gray-400">Harga / OTP</span>
+                        <span class="text-xl font-bold font-rajdhani text-aura-neon">Rp 6.000</span>
+                    </div>
+                    <button onclick="orderNokos('Telegram Indo', 5000)" class="w-full mt-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-aura-purple hover:bg-aura-neon transition-all shadow-purple-glow">
+                        Beli OTP Telegram
+                    </button>
+                </div>
+
+                <!-- Nokos Card 3 -->
+                <div class="glass-panel p-6 rounded-2xl border border-aura-purple/40 hover:border-aura-neon transition-all duration-300 relative group">
+                    <div class="absolute top-4 right-4">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            Ready Stock
+                        </span>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 mb-4 text-2xl">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-rajdhani">NOKOS E-WALLET</h3>
+                    <p class="text-xs text-gray-400 mt-1 mb-4">OTP DANA, OVO, GoPay, ShopeePay Indonesia siap verifikasi.</p>
+                    <div class="flex items-baseline justify-between pt-2 border-t border-aura-purple/20">
+                        <span class="text-xs text-gray-400">Harga / OTP</span>
+                        <span class="text-xl font-bold font-rajdhani text-aura-neon">Rp 6.000</span>
+                    </div>
+                    <button onclick="orderNokos('E-Wallet Indo', 8500)" class="w-full mt-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-aura-purple hover:bg-aura-neon transition-all shadow-purple-glow">
+                        Beli OTP E-Wallet
+                    </button>
+                </div>
+
+                <!-- Nokos Card 4 -->
+                <div class="glass-panel p-6 rounded-2xl border border-aura-purple/40 hover:border-aura-neon transition-all duration-300 relative group">
+                    <div class="absolute top-4 right-4">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            Ready Stock
+                        </span>
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 mb-4 text-2xl">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white font-rajdhani">NOKOS ALL APLIKASI</h3>
+                    <p class="text-xs text-gray-400 mt-1 mb-4">Verifikasi TikTok, Tokopedia, Grab, Maxim, Shopee, dll.</p>
+                    <div class="flex items-baseline justify-between pt-2 border-t border-aura-purple/20">
+                        <span class="text-xs text-gray-400">Harga / OTP</span>
+                        <span class="text-xl font-bold font-rajdhani text-aura-neon">Rp 6.000</span>
+                    </div>
+                    <button onclick="orderNokos('All App Indo', 6000)" class="w-full mt-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-aura-purple hover:bg-aura-neon transition-all shadow-purple-glow">
+                        Beli OTP All App
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="testimoni" class="py-16 px-4 max-w-7xl mx-auto relative">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 text-aura-neon text-sm font-mono uppercase tracking-wider mb-2">
+                    <i class="fa-solid fa-comments"></i> Real Proof & Review
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold font-rajdhani text-white">
+                    TESTIMONI <span class="text-aura-neon neon-text-purple">PEMBELI</span>
+                </h2>
+                <p class="text-gray-400 text-sm mt-2">Bukti transaksi sukses & ulasan langsung dari para buyer terpercaya kami.</p>
+            </div>
+
+            <!-- Testimonials Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Testi Item 1 -->
+                <div class="glass-panel p-5 rounded-2xl border border-aura-purple/30 hover:border-aura-neon transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-aura-purple/40 border border-aura-neon/50 flex items-center justify-center font-bold text-white">
+                                R
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">STOCK ML 1 </h4>
+                                <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                            </div>
+                        </div>
+                        <div class="text-amber-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <!-- Screenshot Preview Mockup -->
+                    <div class="relative rounded-xl overflow-hidden cursor-pointer group mb-3 border border-aura-purple/30" onclick="zoomImage('https://placehold.co/600x400/120824/c77dff?text=Bukti+Transaksi+Akun+MLBB+Sultan')">
+                        <img src="https://placehold.co/600x400/120824/c77dff?text=Bukti+TF+%26+Login+Akun+MLBB" alt="Testimoni Akun MLBB" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-aura-bg/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity font-medium text-xs">
+                            <i class="fa-solid fa-magnifying-glass-plus text-xl mr-2"></i> Click Zoom Bukti
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-300 italic">"Gokil fast respon banget! Akun MLBB Mythical Immortal sesuai spek di web, Moonton allkos langsung amankan. Recommended!"</p>
+                </div>
+
+                <!-- Testi Item 2 -->
+                <div class="glass-panel p-5 rounded-2xl border border-aura-purple/30 hover:border-aura-neon transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-aura-purple/40 border border-aura-neon/50 flex items-center justify-center font-bold text-white">
+                                A
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Andi_SuntikIG</h4>
+                                <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                            </div>
+                        </div>
+                        <div class="text-amber-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <!-- Screenshot Preview Mockup -->
+                    <div class="relative rounded-xl overflow-hidden cursor-pointer group mb-3 border border-aura-purple/30" onclick="zoomImage('https://placehold.co/600x400/120824/c77dff?text=Suntik+5000+Followers+IG+Masuk')">
+                        <img src="https://placehold.co/600x400/120824/c77dff?text=Suntik+5K+Followers+IG+Sukses" alt="Testimoni Suntik Sosmed" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-aura-bg/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity font-medium text-xs">
+                            <i class="fa-solid fa-magnifying-glass-plus text-xl mr-2"></i> Click Zoom Bukti
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-300 italic">"Order 5.000 Followers IG masuk dalam hitungan menit aja. Keren webnya gampang dipake, mantap admin KuroAura!"</p>
+                </div>
+
+                <!-- Testi Item 3 -->
+                <div class="glass-panel p-5 rounded-2xl border border-aura-purple/30 hover:border-aura-neon transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-aura-purple/40 border border-aura-neon/50 flex items-center justify-center font-bold text-white">
+                                B
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Bagas OTP Indo</h4>
+                                <span class="text-[11px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                            </div>
+                        </div>
+                        <div class="text-amber-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <!-- Screenshot Preview Mockup -->
+                    <div class="relative rounded-xl overflow-hidden cursor-pointer group mb-3 border border-aura-purple/30" onclick="zoomImage('https://placehold.co/600x400/120824/c77dff?text=OTP+Nokos+WhatsApp+Terima')">
+                        <img src="https://placehold.co/600x400/120824/c77dff?text=Bukti+OTP+WA+Nokos+Cepat" alt="Testimoni Nokos" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-aura-bg/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity font-medium text-xs">
+                            <i class="fa-solid fa-magnifying-glass-plus text-xl mr-2"></i> Click Zoom Bukti
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-300 italic">"Nokos WA Indonya langsung dapet OTP gak pake lama. Buat kloning akun bisnis mantap banget harganya murah."</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-panel border-t border-aura-purple/30 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="space-y-4 md:col-span-2">
+                    <a href="#" class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-aura-darkPurple via-aura-purple to-aura-neon flex items-center justify-center p-0.5 shadow-purple-glow">
+                            <div class="w-full h-full bg-aura-bg rounded-[10px] flex items-center justify-center">
+                                <i class="fa-solid fa-eye text-aura-neon"></i>
+                            </div>
+                        </div>
+                        <span class="font-rajdhani font-bold text-2xl tracking-wider text-white neon-text-white">KURO<span class="text-aura-neon">AURA</span></span>
+                    </a>
+                    <p class="text-xs text-gray-400 max-w-sm leading-relaxed">
+                        Platform marketplace digital terpercaya khusus Jual Beli Akun Game Sultan, Suntik Social Media Followers/Likes/Views, dan Nokos Indonesia OTP instan.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-9 h-9 rounded-lg glass-panel flex items-center justify-center text-gray-300 hover:text-aura-neon hover:border-aura-neon transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg glass-panel flex items-center justify-center text-gray-300 hover:text-aura-neon hover:border-aura-neon transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg glass-panel flex items-center justify-center text-gray-300 hover:text-aura-neon hover:border-aura-neon transition-all"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg glass-panel flex items-center justify-center text-gray-300 hover:text-aura-neon hover:border-aura-neon transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4 font-rajdhani">Menu Cepat</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#akun-game" class="hover:text-aura-neon transition-colors">Katalog JB ALL GAME</a></li>
+                        <li><a href="#suntik-sosmed" class="hover:text-aura-neon transition-colors">Suntik ALL Sosmed</a></li>
+                        <li><a href="#nokos-indo" class="hover:text-aura-neon transition-colors">Nokos Indonesia MURMER</a></li>
+                        <li><a href="#testimoni" class="hover:text-aura-neon transition-colors">Testimoni BUYER</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4 font-rajdhani">Metode Pembayaran</h4>
+                    <div class="flex flex-wrap gap-2 text-xs font-mono text-gray-300">
+                        <span class="px-2.5 py-1 rounded glass-panel border border-aura-purple/30">QRIS All Payment</span>
+                        <span class="px-2.5 py-1 rounded glass-panel border border-aura-purple/30">DANA</span>
+                        <span class="px-2.5 py-1 rounded glass-panel border border-aura-purple/30">OVO</span>
+                        <span class="px-2.5 py-1 rounded glass-panel border border-aura-purple/30">GoPay</span>
+                        <span class="px-2.5 py-1 rounded glass-panel border border-aura-purple/30">Bank BCA/BRI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-aura-purple/20 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
+                <p>&copy; 2026 DedetGMG Store. All Rights Reserved.</p>
+                <p class="mt-2 sm:mt-0">Designed with Purple Glowing Aura Theme.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- Modal 1: Admin Tambah Akun Game -->
+    <div id="addAccountModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel max-w-xl w-full p-6 rounded-2xl border border-aura-neon/50 max-h-[90vh] overflow-y-auto relative shadow-purple-glow">
+            <button onclick="closeModal('addAccountModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <h3 class="text-2xl font-bold font-rajdhani text-white mb-1 flex items-center gap-2">
+                <i class="fa-solid fa-plus-circle text-aura-neon"></i> Tambah Katalog Akun Game Baru
+            </h3>
+            <p class="text-xs text-gray-400 mb-6">Masukkan rincian akun game yang ingin dijual ke tampilan web.</p>
+
+            <form id="addAccountForm" onsubmit="handleAccountAdd(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Judul Akun</label>
+                    <input type="text" id="accTitle" placeholder="e.g. Akun MLBB Sultan 120 Skin Mythic" required class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-2.5 border border-aura-purple/40 text-sm focus:border-aura-neon focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Kategori Game</label>
+                        <select id="accGame" required class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-2.5 border border-aura-purple/40 text-sm focus:border-aura-neon focus:outline-none">
+                            <option value="mlbb">Mobile Legends</option>
+                            <option value="ff">Free Fire</option>
+                            <option value="genshin">Genshin Impact</option>
+                            <option value="valorant">Valorant</option>
+                            <option value="other">Game Lainnya</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Harga (Rp)</label>
+                        <input type="number" id="accPrice" placeholder="350000" required class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-2.5 border border-aura-purple/40 text-sm focus:border-aura-neon focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Rank / Level</label>
+                        <input type="text" id="accRank" placeholder="Mythic Immortal / AR 58" required class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-2.5 border border-aura-purple/40 text-sm focus:border-aura-neon focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Login Status</label>
+                        <input type="text" id="accLogin" placeholder="Moonton Allkos / VK Single" required class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-2.5 border border-aura-purple/40 text-sm focus:border-aura-neon focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">URL Gambar Screenshot Akun</label>
+                    <input type="url" id="accImg" placeholder="https://..." class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-2.5 border border-aura-purple/40 text-sm focus:border-aura-neon focus:outline-none">
+                    <span class="text-[10px] text-gray-500">Kosongkan jika ingin memakai gambar default otomatis.</span>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Detail Spek Lengkap (Gunakan Koma)</label>
+                    <textarea id="accSpecs" rows="3" placeholder="120 Hero, 150 Skin, WR 65%, Skin Collector Lesley, Skin Legend Gusion" class="w-full glass-panel bg-aura-bg text-white rounded-xl px-4 py-2.5 border border-aura-purple/40 text-sm focus:border-aura-neon focus:outline-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-aura-purple to-aura-neon shadow-purple-glow hover:opacity-90 transition-all">
+                    Simpan & Publikasikan Akun
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Detail Spec Akun Game Modal -->
+    <div id="detailModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel max-w-lg w-full p-6 rounded-2xl border border-aura-neon/50 max-h-[90vh] overflow-y-auto relative shadow-purple-glow">
+            <button onclick="closeModal('detailModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div id="modalDetailContent">
+                <!-- Loaded via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Testimoni Image Zoom Modal -->
+    <div id="imageZoomModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-md" onclick="closeModal('imageZoomModal')">
+        <div class="relative max-w-3xl w-full">
+            <button class="absolute -top-10 right-0 text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+            <img id="zoomedImage" src="" alt="Zoomed Bukti" class="w-full h-auto max-h-[85vh] object-contain rounded-2xl border border-aura-neon shadow-purple-glow">
+        </div>
+    </div>
+
+
+    <script>
+        // Sample Initial Account Data
+        const defaultAccounts = [
+            {
+                id: 'acc-1',
+                title: 'Akun Mobile Legends Mythic Immortal Sultan',
+                game: 'mlbb',
+                price: 450000,
+                rank: 'Mythic Immortal 110*',
+                login: 'Moonton AllKos (Aman)',
+                img: 'https://placehold.co/600x350/120824/c77dff?text=MLBB+Mythic+Immortal+Sultan',
+                specs: ['Hero 122 Complete', 'Skin 210 (Collector Lesley, Legend Gusion)', 'Winrate Overall 68%', 'Emblem Max All', 'Efek Recall Tas Tas']
+            },
+            {
+                id: 'acc-2',
+                title: 'Akun Free Fire Master Season Rarest Vault',
+                game: 'ff',
+                price: 275000,
+                rank: 'Master 4200 Point',
+                login: 'Facebook Single Clean',
+                img: 'https://placehold.co/600x350/120824/c77dff?text=Free+Fire+Master+Old+Vault',
+                specs: ['Bundle Cobra Max Level', 'AK Dragon Max Level', 'Set SG2 One Punch Man', 'Vault Old S2 S3', 'Emote Langka Komplit']
+            },
+            {
+                id: 'acc-3',
+                title: 'Genshin Impact AR 58 C6 Raiden + Signature',
+                game: 'genshin',
+                price: 650000,
+                rank: 'Adventure Rank 58',
+                login: 'Hoyoverse Username Set',
+                img: 'https://placehold.co/600x350/120824/c77dff?text=Genshin+Impact+AR58+C6+Raiden',
+                specs: ['Raiden Shogun C6 R1 Engulfing', 'Kazuha C2 + Freedom Sworn', 'Zhongli C1 + Homa', 'Pity Guaranteed On', 'Exploration 100% All Map']
+            },
+            {
+                id: 'acc-4',
+                title: 'Valorant Radiant Peak + Reaver & Prime Vandal',
+                game: 'valorant',
+                price: 380000,
+                rank: 'Ascendant 3 (Peak Radiant)',
+                login: 'Riot Games Email Change Ready',
+                img: 'https://placehold.co/600x350/120824/c77dff?text=Valorant+Peak+Radiant+Skins',
+                specs: ['Vandal Reaver & Prime', 'Phantom Oni & Spectrum', 'Karambit Prime Knife', 'VP Sisa 1,200', 'Battlepass Season 1 Complete']
+            }
+        ];
+
+        // Sosmed Pricing Options Data
+        const sosmedServices = {
+            Instagram: [
+                { name: 'Followers Instagram Permanent (Mix Real/Active)', ratePer1000: 15000 },
+                { name: 'Likes Post Instagram Instant HQ', ratePer1000: 5000 },
+                { name: 'Video Reels Views Instant Speed', ratePer1000: 2000 }
+            ],
+            TikTok: [
+                { name: 'TikTok Followers Fast Auto Refill', ratePer1000: 22000 },
+                { name: 'TikTok Video Likes High Quality', ratePer1000: 8000 },
+                { name: 'TikTok Video Views Instant Viral', ratePer1000: 1500 }
+            ],
+            YouTube: [
+                { name: 'YouTube Subscribers Permanent Non-Drop', ratePer1000: 120000 },
+                { name: 'YouTube Video Views Monetizable', ratePer1000: 35000 },
+                { name: 'YouTube Video Likes Instant', ratePer1000: 15000 }
+            ],
+            Telegram: [
+                { name: 'Telegram Channel/Group Members Global', ratePer1000: 18000 },
+                { name: 'Telegram Post Views 5 Last Posts', ratePer1000: 3000 }
+            ]
+        };
+
+        // Initialize Data on Load
+        let accounts = [];
+
+        window.onload = function() {
+            // Particle Canvas Visual Energy
+            initParticleCanvas();
+
+            // Load Accounts from LocalStorage or Default
+            const savedAcc = localStorage.getItem('dedetgmg_accounts');
+            if(savedAcc) {
+                accounts = JSON.parse(savedAcc);
+            } else {
+                accounts = defaultAccounts;
+                localStorage.setItem('dedetgmg_accounts', JSON.stringify(accounts));
+            }
+
+            renderAccountCards('all');
+            updateSosmedServices();
+
+            // Mobile menu event listener
+            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+                const menu = document.getElementById('mobileMenu');
+                menu.classList.toggle('hidden');
+            });
+        };
+
+        // Render Account Cards
+        function renderAccountCards(filterGameType) {
+            const container = document.getElementById('accountGrid');
+            container.innerHTML = '';
+
+            const filtered = filterGameType === 'all' 
+                ? accounts 
+                : accounts.filter(a => a.game === filterGameType);
+
+            if(filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 glass-panel rounded-2xl">
+                        <i class="fa-solid fa-folder-open text-4xl text-aura-neon mb-3"></i>
+                        <p class="text-gray-400 text-sm">Belum ada akun ready untuk kategori game ini.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(acc => {
+                const specsPreview = acc.specs.slice(0, 3).map(s => `<li class="flex items-center gap-1.5"><i class="fa-solid fa-caret-right text-aura-neon text-xs"></i> ${s}</li>`).join('');
+
+                const cardHtml = `
+                    <div class="glass-panel rounded-2xl overflow-hidden border border-aura-purple/30 hover:border-aura-neon transition-all duration-300 hover:-translate-y-1 shadow-card-glow flex flex-col justify-between">
+                        <div>
+                            <!-- Image Header -->
+                            <div class="relative h-48 overflow-hidden bg-aura-bg">
+                                <img src="${acc.img || 'https://placehold.co/600x350/120824/c77dff?text=Akun+Game'}" alt="${acc.title}" class="w-full h-full object-cover">
+                                <div class="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-aura-purple/80 text-white backdrop-blur-md border border-aura-neon/40">
+                                    ${acc.game.toUpperCase()}
+                                </div>
+                                <div class="absolute top-3 right-3 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase bg-emerald-500/80 text-white backdrop-blur-md">
+                                    READY STOCK
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="p-5">
+                                <h3 class="font-bold text-lg text-white font-rajdhani line-clamp-1 mb-2">${acc.title}</h3>
+                                
+                                <div class="grid grid-cols-2 gap-2 text-xs mb-4">
+                                    <div class="bg-aura-purple/20 p-2 rounded-lg border border-aura-purple/30">
+                                        <span class="text-gray-400 block text-[10px]">RANK / LEVEL</span>
+                                        <span class="text-white font-semibold line-clamp-1">${acc.rank}</span>
+                                    </div>
+                                    <div class="bg-aura-purple/20 p-2 rounded-lg border border-aura-purple/30">
+                                        <span class="text-gray-400 block text-[10px]">STATUS LOGIN</span>
+                                        <span class="text-white font-semibold line-clamp-1">${acc.login}</span>
+                                    </div>
+                                </div>
+
+                                <ul class="text-xs text-gray-300 space-y-1 mb-4">
+                                    ${specsPreview}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="p-5 pt-0 border-t border-aura-purple/20 flex items-center justify-between mt-auto">
+                            <div>
+                                <span class="text-[10px] text-gray-400 block">HARGA AKUN</span>
+                                <span class="text-xl font-bold font-rajdhani text-aura-neon">Rp ${formatRupiah(acc.price)}</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="showAccountDetail('${acc.id}')" class="p-2.5 rounded-xl glass-panel text-aura-glow hover:text-white hover:border-aura-neon text-xs">
+                                    <i class="fa-solid fa-eye"></i> Detail
+                                </button>
+                                <button onclick="orderAccountWA('${acc.title}', ${acc.price})" class="px-4 py-2.5 rounded-xl font-bold text-xs text-white bg-gradient-to-r from-aura-purple to-purple-600 hover:from-aura-neon hover:to-aura-purple shadow-purple-glow transition-all flex items-center gap-1">
+                                    <i class="fa-brands fa-whatsapp text-sm"></i> Beli
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        // Filter Games Tab Logic
+        function filterGame(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-aura-purple', 'text-white', 'border-aura-neon', 'shadow-purple-glow');
+                btn.classList.add('glass-panel', 'text-gray-300', 'border-transparent');
+            });
+
+            event.currentTarget.classList.remove('glass-panel', 'text-gray-300', 'border-transparent');
+            event.currentTarget.classList.add('bg-aura-purple', 'text-white', 'border-aura-neon', 'shadow-purple-glow');
+
+            renderAccountCards(type);
+        }
+
+        // Show Account Specs Detail Modal
+        function showAccountDetail(id) {
+            const acc = accounts.find(a => a.id === id);
+            if(!acc) return;
+
+            const specsList = acc.specs.map(s => `<li class="flex items-center gap-2 py-1.5 border-b border-aura-purple/20 text-xs text-gray-200"><i class="fa-solid fa-circle-check text-aura-neon"></i> ${s}</li>`).join('');
+
+            const content = `
+                <div class="space-y-4">
+                    <img src="${acc.img}" class="w-full h-52 object-cover rounded-xl border border-aura-purple/40">
+                    <div>
+                        <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-aura-purple/60 text-white border border-aura-neon/40">${acc.game}</span>
+                        <h3 class="text-2xl font-bold font-rajdhani text-white mt-1">${acc.title}</h3>
+                        <p class="text-2xl font-bold font-rajdhani text-aura-neon mt-1">Rp ${formatRupiah(acc.price)}</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-aura-purple/20 p-2.5 rounded-lg border border-aura-purple/30">
+                            <span class="text-gray-400 block text-[10px]">RANK / LEVEL</span>
+                            <span class="text-white font-semibold">${acc.rank}</span>
+                        </div>
+                        <div class="bg-aura-purple/20 p-2.5 rounded-lg border border-aura-purple/30">
+                            <span class="text-gray-400 block text-[10px]">LOGIN ACCESS</span>
+                            <span class="text-white font-semibold">${acc.login}</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Rincian Spesifikasi Akun:</h4>
+                        <ul class="space-y-1">
+                            ${specsList}
+                        </ul>
+                    </div>
+
+                    <button onclick="orderAccountWA('${acc.title}', ${acc.price})" class="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-aura-purple to-purple-600 shadow-purple-glow hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Beli Akun Sekarang via WA
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('modalDetailContent').innerHTML = content;
+            openModal('detailModal');
+        }
+
+        // Add Account Submit Handler (Admin Feature)
+        function handleAccountAdd(e) {
+            e.preventDefault();
+            const title = document.getElementById('accTitle').value;
+            const game = document.getElementById('accGame').value;
+            const price = parseInt(document.getElementById('accPrice').value);
+            const rank = document.getElementById('accRank').value;
+            const login = document.getElementById('accLogin').value;
+            const img = document.getElementById('accImg').value || `https://placehold.co/600x350/120824/c77dff?text=${encodeURIComponent(title)}`;
+            const specsStr = document.getElementById('accSpecs').value;
+
+            const specs = specsStr ? specsStr.split(',').map(s => s.trim()) : ['Spek Terjamin Lengkap', 'Garansi Akun Clean'];
+
+            const newAcc = {
+                id: 'acc-' + Date.now(),
+                title, game, price, rank, login, img, specs
+            };
+
+            accounts.unshift(newAcc);
+            localStorage.setItem('kuroaura_accounts', JSON.stringify(accounts));
+
+            renderAccountCards('all');
+            closeModal('addAccountModal');
+            document.getElementById('addAccountForm').reset();
+            alert('Akun game berhasil ditambahkan ke katalog!');
+        }
+
+        // Dynamic Sosmed Service Select Loader
+        function updateSosmedServices() {
+            const platform = document.querySelector('input[name="platform"]:checked').value;
+            const select = document.getElementById('sosmedServiceSelect');
+            select.innerHTML = '';
+
+            sosmedServices[platform].forEach((srv, index) => {
+                const opt = document.createElement('option');
+                opt.value = index;
+                opt.textContent = `${srv.name} (Rp ${formatRupiah(srv.ratePer1000)} / 1,000)`;
+                select.appendChild(opt);
+            });
+
+            calculateSosmedPrice();
+        }
+
+        function calculateSosmedPrice() {
+            const platform = document.querySelector('input[name="platform"]:checked').value;
+            const srvIndex = document.getElementById('sosmedServiceSelect').value;
+            const amount = parseInt(document.getElementById('sosmedAmount').value) || 0;
+
+            const service = sosmedServices[platform][srvIndex];
+            if(!service) return;
+
+            const total = (amount / 1000) * service.ratePer1000;
+            document.getElementById('sosmedTotalPrice').textContent = 'Rp ' + formatRupiah(total);
+        }
+
+        function handleSosmedSubmit(e) {
+            e.preventDefault();
+            const platform = document.querySelector('input[name="platform"]:checked').value;
+            const srvIndex = document.getElementById('sosmedServiceSelect').value;
+            const service = sosmedServices[platform][srvIndex];
+            const amount = document.getElementById('sosmedAmount').value;
+            const target = document.getElementById('sosmedTarget').value;
+            const total = (amount / 1000) * service.ratePer1000;
+
+            const text = `Halo Admin DedetGMG, saya mau order Suntik Sosmed:\n\n- Platform: ${platform}\n- Layanan: ${service.name}\n- Jumlah: ${amount}\n- Target: ${target}\n- Total Biaya: Rp ${formatRupiah(total)}\n\nMohon diproses min!`;
+            
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Order Nokos Handler
+        function orderNokos(type, price) {
+            const text = `Halo Admin DedetGMG, saya mau beli Nokos OTP:\n\n- Jenis: ${type}\n- Harga: Rp ${formatRupiah(price)}\n\nMohon kirimkan nomornya min.`;
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Direct WA Account Buy
+        function orderAccountWA(title, price) {
+            const text = `Halo Admin DedetGMG, saya tertarik membeli akun game:\n\n- Judul: ${title}\n- Harga: Rp ${formatRupiah(price)}\n\nApakah akun ini masih ready?`;
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Helper Modal Controls
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function zoomImage(url) {
+            document.getElementById('zoomedImage').src = url;
+            openModal('imageZoomModal');
+        }
+
+        function formatRupiah(val) {
+            return new Intl.NumberFormat('id-ID').format(val);
+        }
+
+        // Background Particle Aura Canvas Effect
+        function initParticleCanvas() {
+            const canvas = document.getElementById('auraCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const particles = [];
+            const particleCount = 45;
+
+            for(let i=0; i<particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2.5 + 0.5,
+                    color: Math.random() > 0.5 ? '#c77dff' : '#9d4edd',
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.8) * 0.8,
+                    alpha: Math.random() * 0.7 + 0.2
+                });
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if(p.y < 0) p.y = canvas.height;
+                    if(p.x < 0) p.x = canvas.width;
+                    if(p.x > canvas.width) p.x = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#c77dff';
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        }
+    </script>
+</body>
+</html>
