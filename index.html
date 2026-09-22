@@ -178,7 +178,7 @@
                 <!-- Action Button & Admin Add -->
                 <div class="hidden md:flex items-center space-x-3">
                     <button onclick="openModal('addAccountModal')" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-aura-neon/50 text-aura-glow bg-aura-purple/20 hover:bg-aura-purple/40 hover:border-aura-neon hover:shadow-purple-glow transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-plus-circle text-aura-neon"></i>  NO Admin: 621586920400
+                        <i class="fa-solid fa-plus-circle text-aura-neon"></i>  Pusat Controling
                     </button>
                     <a href="https://wa.me/6281234567890?text=Halo%20Admin%20KuroAura,%20saya%20ingin%20bertanya" target="_blank" class="px-5 py-2.5 rounded-lg font-medium text-sm text-white bg-gradient-to-r from-aura-purple to-purple-600 hover:from-aura-neon hover:to-aura-purple shadow-purple-glow transition-all duration-300 hover:scale-105 flex items-center gap-2">
                         <i class="fa-brands fa-whatsapp text-lg"></i> Hubungi Admin : 621586920400
@@ -226,7 +226,7 @@
                 <div class="lg:col-span-7 text-center lg:text-left space-y-6">
                     <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-aura-neon/40 text-xs sm:text-sm text-aura-glow font-mono uppercase tracking-widest shadow-purple-glow">
                         <span class="w-2 h-2 rounded-full bg-aura-neon animate-ping"></span>
-                        Toko Resmi • Akun & Services Verified
+                        Toko Resmi • Jual/beli Akun Game!
                     </div>
 
                     <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-rajdhani tracking-tight leading-none text-white">
@@ -237,7 +237,7 @@
                     </h1>
 
                     <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                        Pusat jual beli akun game sultan bergaransi, jasa <span class="text-aura-neon font-semibold">suntik followers sosmed instant</span>, dan ketersediaan <span class="text-aura-neon font-semibold">Nokos Indonesia OTP</span> terpercaya dengan proses kilat 24/7.
+                        Pusat jual beli akun game sultan terpercaya, jasa <span class="text-aura-neon font-semibold">suntik followers sosmed instant</span>, dan ketersediaan <span class="text-aura-neon font-semibold">Nokos Indonesia OTP</span> terpercaya dengan proses kilat 24/7.
                     </p>
 
                     <!-- Stat Cards Grid -->
@@ -327,7 +327,7 @@
                             <div class="absolute bottom-4 left-4 right-4 glass-panel p-3 rounded-xl border border-aura-neon/30 flex items-center justify-between">
                                 <div class="flex items-center gap-2">
                                     <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
-                                    <span class="text-xs font-mono text-gray-200">Aura Mode: Active/Noactive </span>
+                                    <span class="text-xs font-mono text-gray-200">Aura Mode: Active </span>
                                 </div>
                                 <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-aura-purple/50 text-white border border-aura-neon/40">Verified</span>
                             </div>
@@ -1087,7 +1087,7 @@
             };
 
             accounts.unshift(newAcc);
-            localStorage.setItem('kuroaura_accounts', JSON.stringify(accounts));
+            localStorage.setItem('dedetikhy_accounts', JSON.stringify(accounts));
 
             renderAccountCards('all');
             closeModal('addAccountModal');
@@ -1134,19 +1134,19 @@
 
             const text = `Halo Admin DedetGMG, saya mau order Suntik Sosmed:\n\n- Platform: ${platform}\n- Layanan: ${service.name}\n- Jumlah: ${amount}\n- Target: ${target}\n- Total Biaya: Rp ${formatRupiah(total)}\n\nMohon diproses min!`;
             
-            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+            window.open(`https://wa.me/6281586920400?text=Z{encodeURIComponent(text)}`, '_blank');
         }
 
         // Order Nokos Handler
         function orderNokos(type, price) {
             const text = `Halo Admin DedetGMG, saya mau beli Nokos OTP:\n\n- Jenis: ${type}\n- Harga: Rp ${formatRupiah(price)}\n\nMohon kirimkan nomornya min.`;
-            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+            window.open(`https://wa.me/6281586920400?text=${encodeURIComponent(text)}`, '_blank');
         }
 
         // Direct WA Account Buy
         function orderAccountWA(title, price) {
             const text = `Halo Admin DedetGMG, saya tertarik membeli akun game:\n\n- Judul: ${title}\n- Harga: Rp ${formatRupiah(price)}\n\nApakah akun ini masih ready?`;
-            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+            window.open(`https://wa.me/6281586920400?text=${encodeURIComponent(text)}`, '_blank');
         }
 
         // Helper Modal Controls
